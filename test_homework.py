@@ -1,5 +1,7 @@
 from homework import *
+from pytest import approx
 import sqlite3
+import sklearn
 
 
 def test_python():
@@ -16,4 +18,10 @@ def test_sql():
     schema = [description[0] for description in cur.description]
     assert schema == ['id', 'first_name', 'last_name', 'email']
     assert len(results) >= 5
+
+
+def test_model():
+    model, score = train_model()
+    assert isinstance(model, sklearn.linear_model._base.LinearRegression)
+    assert score == approx(0.87, 0.01)
 
