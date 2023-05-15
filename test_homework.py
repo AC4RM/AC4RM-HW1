@@ -2,6 +2,7 @@ from homework import *
 from pytest import approx
 import sqlite3
 import sklearn
+import re
 
 
 def test_python():
@@ -25,3 +26,17 @@ def test_model():
     assert isinstance(model, sklearn.linear_model._base.LinearRegression)
     assert score == approx(0.87, 0.01)
 
+
+def test_regex():
+    assert re.search(regex_pattern, 'abcd\t')
+    assert re.search(regex_pattern, '\nabcd')
+    assert not re.search(regex_pattern, 'abcd')
+
+
+def test_monte_carlo():
+    result = []
+    np.random.seed(42)
+    for _ in range(1000):
+        result.append(1 if play_round() else 0)
+
+    assert sum(result) == 497

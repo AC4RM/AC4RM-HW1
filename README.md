@@ -17,3 +17,11 @@
      - Split the X and y into training and testing set (80/20) and use a random seed of `42`
      - Fit a linear regression model using your training data
      - Return the linear regression model object and your test score
+4. Write a regex pattern to find special sequence `\n` and `\t` from the string. For example:
+    - `re.search(regex_pattern, 'abcd\t')` => Match
+    - `re.search(regex_pattern, '\nabcd')` => Match
+    - `re.search(regex_pattern, 'abcd')` => Not match
+5. Populate the `play_round` function to play a round of the game rolling a 100 sided dice.
+   - If you draw a value from 1 to 50, you win.
+   - If you draw a value from 51 to 100, you lose.
+   - Return `True` if you win and `False` if you lose.
