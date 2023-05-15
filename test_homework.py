@@ -1,5 +1,7 @@
 from homework import *
 from pytest import approx
+from pathlib import Path
+import pandas as pd
 import sqlite3
 import sklearn
 import re
@@ -13,12 +15,13 @@ def test_python():
 def test_sql():
     create_table()
     con = sqlite3.connect('homework.db')
-    cur = con.cursor()
-    results = cur.execute(''' SELECT * FROM enrollment;''').fetchall()
+    result_df = pd.read_sql_query("SELECT * FROM enrollment;", con)
 
-    schema = [description[0] for description in cur.description]
+    schema = list(result_df.columns)
     assert schema == ['id', 'first_name', 'last_name', 'email']
-    assert len(results) >= 5
+    assert result_df.shape[0] >= 5
+
+    Path('homework.db').unlink(missing_ok=True)
 
 
 def test_model():
