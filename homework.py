@@ -24,6 +24,11 @@ def train_model():
     np.random.seed(42)
     accidents = pd.read_csv('https://raw.githubusercontent.com/AC4RM/AC4RM-dataset/main/homework/fars2007.csv',
                             index_col=0)
+    accidents['speedBin'] = pd.cut(accidents.travspd, 20, labels=False)
+    accidents = accidents.groupby('speedBin')[['injury', 'travspd']].agg({'travspd': 'mean', 'injury': 'mean'})
+    X = accidents[['travspd']]
+    y = accidents['injury']
+
     # Your code here
 
 
